@@ -1,4 +1,4 @@
-import '../templates/basePage/basePage';
+import '../templates/calcPage/calcPage';
 import './matrix-mul-matrix.sass';
 
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
