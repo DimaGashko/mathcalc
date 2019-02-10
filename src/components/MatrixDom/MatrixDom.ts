@@ -1,3 +1,4 @@
+import { throttle } from 'throttle-debounce';
 import EventListener from '../EventListener/EventListener';
 import * as microTemplate from 'micro-template';
 
@@ -100,6 +101,9 @@ export default class MatrixDom extends EventListener {
 
    // Шаблон панели управления
    private controlsTmpl = controlsTmpl;
+
+   // Throttle-задержка для всех render-ов
+   private _throttleRenderDelay: number = 100; 
 
    constructor(config: IMatrixDomConfig = {}) {
       super();
@@ -255,7 +259,7 @@ export default class MatrixDom extends EventListener {
       this.resetData();
    }
 
-   private render(): void {
+   private render() { 
       this._root.innerHTML = microTemplate.template(this.mainTmpl, this);
 
       this.els.data = this.root.querySelector('.matrixDom__data');
@@ -264,9 +268,9 @@ export default class MatrixDom extends EventListener {
 
       this.renderData();
       this.renderControls();
-   }
+   };
 
-   private renderData() {
+   private renderData = throttle(this._throttleRenderDelay, () => {
       if (!this.els.data) return;
 
       this.els.data.innerHTML = microTemplate
@@ -275,9 +279,9 @@ export default class MatrixDom extends EventListener {
       this.els.area = this.root.querySelector('.matrixDom__area');
       
       this.correctAreaSize();
-   }
+   }); 
 
-   private renderControls() {
+   private renderControls = throttle(this._throttleRenderDelay, () => {
       if (!this.els.controls) return;
 
       this.els.controls.innerHTML = microTemplate
@@ -287,8 +291,8 @@ export default class MatrixDom extends EventListener {
       this.els.resetButton = this.root.querySelector('.matrixDom__reset');
       this.els.mDimensions = this.root.querySelector('.matrixDom__mDimensions');
       this.els.nDimensions = this.root.querySelector('.matrixDom__nDimensions');
-   }
-
+   });
+   
    private correctAreaSize() {
       if (this.viewType !== 'area') return;
 

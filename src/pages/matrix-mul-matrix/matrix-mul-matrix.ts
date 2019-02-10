@@ -1,6 +1,5 @@
 import '../templates/calcPage/calcPage';
 import './matrix-mul-matrix.sass';
-import { throttle } from 'throttle-debounce';
 
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
 import matrixMulMatrix from '../../calcFunctions/matrixMulMatrix';
@@ -13,8 +12,8 @@ const els = {
    matrixC: workspace.querySelector('.calc__matrixC'),
 }
 
-const throttleCalc = throttle(2000, calc);
-
+console.log('Matrix multiplication');
+ 
 const matrixA = new MatrixDom({
    title: 'Matrix A',
 });
@@ -32,24 +31,24 @@ els.matrixC.appendChild(matrixC.root);
 
 matrixB.m = matrixA.n;
 
-throttleCalc();
+calc();
 
 matrixA.addEvent('change-data', () => {
-   throttleCalc();
+   calc();
 });
 
 matrixB.addEvent('change-data', () => {
-   throttleCalc();
+   calc();
 });
 
 matrixA.addEvent('change-dimensions', () => { 
    matrixB.m = matrixA.n;
-   throttleCalc();
+   calc();
 });
 
 matrixB.addEvent('change-dimensions', () => { 
    matrixA.n = matrixB.m;
-   throttleCalc();
+   calc();
 });
 
 function calc() { 
