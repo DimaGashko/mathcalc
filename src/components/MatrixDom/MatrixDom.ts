@@ -103,7 +103,7 @@ export default class MatrixDom extends EventListener {
    private controlsTmpl = controlsTmpl;
 
    // Throttle-задержка для всех render-ов
-   private _throttleRenderDelay: number = 50; 
+   private _throttleDelay: number = 50; 
 
    constructor(config: IMatrixDomConfig = {}) {
       super();
@@ -259,7 +259,7 @@ export default class MatrixDom extends EventListener {
       this.reset();
    }
 
-   private render = throttle(this._throttleRenderDelay, () => {
+   private render = throttle(this._throttleDelay, () => {
       this._root.innerHTML = microTemplate.template(this.mainTmpl, this);
 
       this.els.data = this.root.querySelector('.matrixDom__data');
@@ -270,7 +270,7 @@ export default class MatrixDom extends EventListener {
       this.renderControls();
    });
 
-   private renderData = throttle(this._throttleRenderDelay, () => {
+   private renderData = throttle(this._throttleDelay, () => {
       if (!this.els.data) return;
 
       this.els.data.innerHTML = microTemplate
@@ -281,7 +281,7 @@ export default class MatrixDom extends EventListener {
       this.correctAreaSize();
    }); 
 
-   private renderControls = throttle(this._throttleRenderDelay, () => {
+   private renderControls = throttle(this._throttleDelay, () => {
       if (!this.els.controls) return;
 
       this.els.controls.innerHTML = microTemplate
