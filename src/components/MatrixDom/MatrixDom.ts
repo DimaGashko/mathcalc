@@ -42,9 +42,9 @@ export default class MatrixDom extends EventListener {
    private _isDisabled: boolean = false;
 
    private _defaultMatrix: number[][] = [
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
    ];
 
    private _defaultM: number = this._defaultMatrix.length;
@@ -108,9 +108,6 @@ export default class MatrixDom extends EventListener {
    }
 
    private init(config: IMatrixDomConfig): void {
-      this._createRoot();
-      this._initEvents();
-
       const customData = 'data' in config
          && config.data.length > 0
          && config.data[0].length > 0;
@@ -132,6 +129,9 @@ export default class MatrixDom extends EventListener {
       if ('title' in config) this._title = config.title;
       if ('disabled' in config) this._isDisabled = config.disabled;
 
+      this._createRoot();
+      this._initEvents();
+      
       this.resetData();
       this.render();
    }
@@ -298,6 +298,11 @@ export default class MatrixDom extends EventListener {
 
    private _createRoot() {
       this._root = document.createElement('div');
+      this._root.className = 'matrixDom';
+
+      if (this._isDisabled) {
+         this._root.classList.add('matrixDom-disabled');
+      }
    }
 
    private _getAreaText(): string {
@@ -561,7 +566,9 @@ export default class MatrixDom extends EventListener {
       if (val === this._isDisabled) return;
 
       this._isDisabled = val;
-      this.render();
+
+      const type = (this._isDisabled) ? 'add' : 'remove';
+      this._root.classList[type]('matrixDom-disabled');
    }
 
 }
