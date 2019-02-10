@@ -1,6 +1,6 @@
 include ./components/pagesConfig
 
-- let fullWidthContent = true
+- let fullWidthContent = false
 
 doctype html
 html(lang="en")
@@ -14,6 +14,9 @@ html(lang="en")
       .wrapper
 
          include ./components/header
+
+         block fullWidthContent
+            // example: - fullWidthContent = false
 
          .main(class=fullWidthContent ? "main--fullWidthContent" : "")
             .main__content
