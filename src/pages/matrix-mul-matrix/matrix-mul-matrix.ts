@@ -4,19 +4,30 @@ import './matrix-mul-matrix.sass';
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
 import matrixMulMatrix from '../../calcFunctions/matrixMulMatrix';
 
-const root = document.querySelector('.app');
+const workspace = document.querySelector('.calc-workspace');
+
+const els = {
+   matrixA: workspace.querySelector('.calc__matrixA'),
+   matrixB: workspace.querySelector('.calc__matrixB'),
+   matrixC: workspace.querySelector('.calc__matrixC'),
+}
 
 console.log('Matrix multiplication');
 
-const matrixA = new MatrixDom();
-const matrixB = new MatrixDom();
+const matrixA = new MatrixDom({
+   title: 'Matrix A',
+});
+const matrixB = new MatrixDom({
+   title: 'Matrix B',
+});
 const matrixC = new MatrixDom({
+   title: 'A * B',
    disabled: true,
 });
 
-root.appendChild(matrixA.root);
-root.appendChild(matrixB.root);
-root.appendChild(matrixC.root);
+els.matrixA.appendChild(matrixA.root);
+els.matrixB.appendChild(matrixB.root);
+els.matrixC.appendChild(matrixC.root);
 
 matrixB.m = matrixA.n;
 
