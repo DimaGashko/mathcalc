@@ -103,7 +103,7 @@ export default class MatrixDom extends EventListener {
    private controlsTmpl = controlsTmpl;
 
    // Throttle-задержка для всех render-ов
-   private _throttleRenderDelay: number = 100; 
+   private _throttleRenderDelay: number = 50; 
 
    constructor(config: IMatrixDomConfig = {}) {
       super();
@@ -136,7 +136,7 @@ export default class MatrixDom extends EventListener {
       this._createRoot();
       this._initEvents();
       
-      this.resetData();
+      this._reset();
       this.render();
    }
 
@@ -256,10 +256,10 @@ export default class MatrixDom extends EventListener {
    }
 
    private onReset() {
-      this.resetData();
+      this.reset();
    }
 
-   private render() { 
+   private render = throttle(this._throttleRenderDelay, () => {
       this._root.innerHTML = microTemplate.template(this.mainTmpl, this);
 
       this.els.data = this.root.querySelector('.matrixDom__data');
@@ -268,7 +268,7 @@ export default class MatrixDom extends EventListener {
 
       this.renderData();
       this.renderControls();
-   };
+   });
 
    private renderData = throttle(this._throttleRenderDelay, () => {
       if (!this.els.data) return;
@@ -356,7 +356,7 @@ export default class MatrixDom extends EventListener {
       this.render();
    }
 
-   public resetData() {
+   public _reset() {
       this._setDimensions(this._defaultM, this._defaultN);
 
       this._matrix = [];
@@ -366,7 +366,10 @@ export default class MatrixDom extends EventListener {
             this.set(i, j, item);
          });
       });
+   }
 
+   public reset() { 
+      this._reset();
       this.renderData();
    }
 
@@ -390,7 +393,7 @@ export default class MatrixDom extends EventListener {
 
    public _setData(data: number[][]) {
       if (data.length === 0 || data[0].length === 0) {
-         this.resetData();
+         this._reset();
       }
 
       const m = data.length;
