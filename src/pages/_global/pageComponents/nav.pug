@@ -1,9 +1,8 @@
 - pages = pagesConfig.pages.filter((page) => page.alias !== 'main');
 
 nav.nav 
-   .nav__content
-      .nav__title: a.nav__title-link(href = pagesConfigHash.main.url) All Tools
-      .nav__content  
-         ul.nav__list
-            each page in pages
-               li.nav__listItem: a.nav__link(href=page.url)= page.name   
+   .nav__title: a.nav__title-link(href = pagesConfigHash.main.url) All Tools
+   .nav__content  
+      ul.nav__list
+         each page in pages
+            li.nav__listItem: a.nav__link(href=page.url)= page.name   
