@@ -1,4 +1,4 @@
-import '../_global/global';
+import '../templates/basePage/basePage';
 import './matrix-mul-matrix.sass';
 
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
