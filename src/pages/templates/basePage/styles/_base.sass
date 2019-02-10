@@ -20,9 +20,13 @@ a
    @extend %clearfix, %container
    margin-bottom: $main-v-padding 
 
+   min-height: 75vh  
+
    @media screen and (min-width: $desktop-w)
       margin-bottom: $main-v-padding-desk
       $aside-w: 400px
+
+      min-height: 95vh  
 
       .main__content
       .main__aside
@@ -35,7 +39,7 @@ a
       .main__aside
          padding: 0 $main-padding-desk
          width: $aside-w
-
+ 
 .main__content,
 .main__aside 
    float: left
