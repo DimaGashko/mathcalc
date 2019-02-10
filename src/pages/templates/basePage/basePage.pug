@@ -1,5 +1,7 @@
 include ./components/pagesConfig
 
+- let fullWidthContent = true
+
 doctype html
 html(lang="en")
    head
@@ -13,7 +15,7 @@ html(lang="en")
 
          include ./components/header
 
-         .main
+         .main(class=fullWidthContent ? "main--fullWidthContent" : "")
             .main__content
 
                h1.contentTitle
