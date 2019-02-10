@@ -1,4 +1,4 @@
-# Numerical Methods: Lab work 1
+# MathCalc - online calculator
 
 Tasks: [Lab1.doc](./Lab1.doc)
 
