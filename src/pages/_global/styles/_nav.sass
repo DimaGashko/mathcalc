@@ -1,0 +1,48 @@
+// Nav
+.nav
+   
+.nav__content 
+   margin: 0 auto
+
+.nav__title
+   background-color: $g-color2
+   color: $g-color1
+   padding: 10px
+   border: none
+   border-radius: 2px
+   box-shadow: 0 1px 1.5px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.24)
+   font-size: 1.2rem
+ 
+   &:before
+      content: '⚒' 
+      margin-right: 10px
+      font-size: 1.3em
+
+.nav__content
+   box-shadow: 0 5px 5px 0 rgba(0,0,0,0.1)
+
+.nav__list
+   margin: 0
+   list-style: none
+   padding: 0px
+
+.nav__listItem 
+   &:first-child
+      margin-top: 5px
+
+   &:last-child
+      padding-bottom: 5px
+
+.nav__link
+   display: block
+   color: $g-color2 * 1.3
+   transition: color 0.2s ease-in-out
+   text-decoration: none
+   font-size: 1.2rem
+   padding: 6px 20px
+   margin: 0
+   font-family: "Roboto", sans-serif
+
+   &:hover
+      text-decoration: none
+      color: $g-color2

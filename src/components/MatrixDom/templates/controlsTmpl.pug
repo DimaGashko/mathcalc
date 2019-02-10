@@ -1,0 +1,16 @@
+.matrixDom__dimensionsControlsContainer
+   <% const dimDisabled = (t._isDisabled || t.viewType === 'area') ? 'disabled' : '' %> 
+
+   input.matrixDom__dimensionsControl.matrixDom__mDimensions(
+      type="number" placeholder="m" value!="<%= t.m %>"
+      min!="<%= t._minM %>" max!="<%= t._maxM %>" step=1
+   )&attributes({"<%= dimDisabled %>": "true"})
+   span.matrixDom__mnSeparator ☓
+   input.matrixDom__dimensionsControl.matrixDom__nDimensions(
+      type="number" placeholder="n" value!="<%= t.n %>" 
+      min!="<%= t._minN %>" max!="<%= t._maxN %>" step=1
+   )&attributes({"<%= dimDisabled %>": "true"})
+
+.matrixDom__buttons
+   button.matrixDom__control.matrixDom__view(type="button") View
+   button.matrixDom__control.matrixDom__reset(type="button") Reset  

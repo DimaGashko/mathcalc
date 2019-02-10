@@ -1,0 +1,132 @@
+$bracketsPadding: 12px 
+   
+%focus 
+   &:focus
+      outline: 2px solid #4D90FE
+      outline-offset: -1px
+
+%data-font 
+   font-family: monospace
+   color: #000
+
+   
+// matrixDom
+.matrixDom 
+   display: inline-block
+   vertical-align: middle
+   max-width: 100%
+   overflow: auto
+   
+.matrixDom__title
+   text-align: center
+   font-size: 18px
+   margin: 0
+   margin-bottom: 5px
+
+.matrixDom__form
+   text-align: center
+   
+.matrixDom__data
+   display: inline-block
+   margin-bottom: 4px
+   max-width: 100%
+   box-sizing: border-box
+   overflow: auto
+   padding: $bracketsPadding 0
+   display: inline-block
+
+   // Brackets
+   border-radius: 15px/40px
+   border: 2px solid #555
+   border-top-color: transparent
+   border-bottom-color: transparent
+
+.matrixDom__dataContainer 
+   display: inline-block
+   margin: 0 $bracketsPadding
+   
+.matrixDom__controls
+
+.matrixDom__cellsRow
+   white-space: nowrap
+   margin-bottom: 5px
+
+   &:last-child 
+      margin-bottom: 0
+
+.matrixDom__dimensionsControlsContainer
+   display: inline-block
+   margin-right: 10px
+
+.matrixDom__dimensionsControl
+   @extend %focus
+
+   width: 25px
+   text-align: center
+   margin: 0
+   border: 1px solid #ccc
+
+   -moz-appearance: textfield
+
+   &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+      -webkit-appearance: none
+
+.matrixDom__mnSeparator 
+   margin: 0
+
+.matrixDom__buttons 
+   display: inline-block
+
+.matrixDom__control 
+   margin-right: 5px
+
+   &:last-child
+      margin-right: 0
+
+.matrixDom__areaContainer
+
+.matrixDom__area 
+   @extend %data-font
+   @extend %focus
+
+   padding: 6px
+   white-space: pre 
+
+   min-width: 150px
+   min-height: 70px
+
+   max-width: 500px
+   max-height: 380px
+
+   tab-size: 3
+   border-radius: 2px
+   border: 1px solid #ccc
+   box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.075)
+   
+// matrixCell
+.matrixCell 
+   display: inline-block
+   vertical-align: middle
+   margin-right: 5px
+
+   &:last-child 
+      margin-right: 0
+
+.matrixCell__input
+   @extend %focus
+   @extend %data-font
+
+   padding: 1px 3px
+   margin: 0
+   text-align: center 
+   width: 50px
+   height: 25px
+   vertical-align: middle
+   border-radius: 2px
+   border: 1px solid #ccc
+   box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.075)
+ 
+   -moz-appearance: textfield
+
+   &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+      -webkit-appearance: none

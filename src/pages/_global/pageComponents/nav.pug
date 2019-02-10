@@ -1,0 +1,7 @@
+nav.nav 
+   .nav__content
+      .nav__title All Tools
+      .nav__content
+         ul.nav__list
+            each page in pagesConfig.pages
+               li.nav__listItem: a.nav__link(href=page.url)= page.name   

@@ -1,0 +1,27 @@
+.matrixDom__dataContainer
+   <% const disabled = (t._isDisabled) ? 'disabled' : '' %>
+
+   <% if (t.viewType === 'cell') { %>
+   .matrixDom__cellsContainer 
+
+      <% for (let i = 0; i < t._m; i++) { %>
+      .matrixDom__cellsRow
+
+         <% for (let j = 0; j < t._n; j++) { %>
+         .matrixCell(data-cell-i!="<%= i %>" data-cell-j!="<%= j %>")
+            input.matrixCell__input(
+               type="number" value!="<%= t.getFormated(i, j) %>" 
+            )&attributes({"<%= disabled %>": "true"}) 
+         <% } %> 
+      <% } %>
+
+   <% } else if (t.viewType === 'area') { %>
+   .matrixDom__areaContainer
+      textarea.matrixDom__area(
+         placeholder="1 2 3.9\n4 5 6.2\n7 8 9.1"
+      )&attributes({"<%= disabled %>": "true"}) <%= t._getAreaText() %>
+       
+   <% } else { %>
+   p Wrong viewType
+   <% } %>
+   

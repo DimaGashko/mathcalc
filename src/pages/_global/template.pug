@@ -1,0 +1,29 @@
+include ./pageComponents/pagesConfig
+
+doctype html
+html(lang="en")
+   head
+      meta(charset="UTF-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      meta(http-equiv="X-UA-Compatible", content="ie=edge")
+      
+      block title
+   body
+      .wrapper
+
+         include ./pageComponents/header
+
+         .main
+            .main__content
+
+               h1.contentTitle
+                  block contentTitle
+                     | #{pagesConfig.slogan}
+
+               main.mainContent
+                  block content
+
+            .main__aside
+               include ./pageComponents/aside
+
+         include ./pageComponents/footer
