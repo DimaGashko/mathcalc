@@ -3,8 +3,6 @@ import './matrix-mul-matrix.sass';
 
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
 import matrixMulMatrix from '../../calcFunctions/matrixMulMatrix';
-import { throttle } from 'throttle-debounce';
-
 const workspace = document.querySelector('.calc-workspace');
 
 const els = {
@@ -31,7 +29,6 @@ els.matrixB.appendChild(matrixB.root);
 els.matrixC.appendChild(matrixC.root);
 
 matrixB.m = matrixA.n;
-(<any>window).t = throttle;
 calc();
 
 matrixA.addEvent('change-data', () => {
