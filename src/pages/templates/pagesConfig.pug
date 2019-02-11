@@ -1,0 +1,108 @@
+-
+   0; // Костыль, что бы считать файл одновременно как js и pug
+
+   const pagesConfig = {
+      name: 'MathCalc',
+      slogan: 'MathCalc - online calculator',
+      hash: {}, // Определяется ниже
+
+      pages: [{
+         name: 'MathCalc - online calculator',
+         alias: 'index',
+         url: '/', 
+         webpackEntry: './src/pages/index/index.ts', 
+         htmlWebpackPlugin: {
+            filename: 'index.html',
+            template: './src/pages/index/index.pug',
+         },
+      }, {
+         name: 'Matrix addition',
+         alias: 'matrixAddMatrix',
+         url: '/matrix-plus-matrix',
+         webpackEntry: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
+         htmlWebpackPlugin: {
+            filename: 'index.html',
+            template: './src/pages/matrix-mul-matrix/matrix-mul-matrix.pug',
+         },
+      }, { 
+         name: 'Matrix multiplication',
+         alias: 'matrixMulMatrix',
+         url: '/matrix-mul-matrix',
+         webpackEntry: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
+         htmlWebpackPlugin: {
+            filename: 'index.html',
+            template: './src/pages/matrix-mul-matrix/matrix-mul-matrix.pug',
+         },
+      }, {
+         name: 'Matrix-vector multiplication',
+         alias: 'matrixMulVec',
+         url: '/matrix-mul-vector',
+         webpackEntry: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
+         htmlWebpackPlugin: {
+            filename: 'index.html',
+            template: './src/pages/matrix-mul-matrix/matrix-mul-matrix.pug',
+         },
+      }, {
+         name: 'Matrix-number multiplication',
+         alias: 'matrixMulNum',
+         url: '/matrix-mul-number',
+         webpackEntry: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
+         htmlWebpackPlugin: {
+            filename: 'index.html',
+            template: './src/pages/matrix-mul-matrix/matrix-mul-matrix.pug',
+         },
+      }, {
+         name: 'Matrix transpose',
+         alias: 'matrixTranspose',
+         url: '/transpose-matrix',
+         webpackEntry: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
+         htmlWebpackPlugin: {
+            filename: 'index.html',
+            template: './src/pages/matrix-mul-matrix/matrix-mul-matrix.pug',
+         },
+      }, {
+         name: 'Absolute Value of a Vector',
+         alias: 'vecAbs',
+         url: '/vector-abs',
+         webpackEntry: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
+         htmlWebpackPlugin: {
+            filename: 'index.html',
+            template: './src/pages/matrix-mul-matrix/matrix-mul-matrix.pug',
+         },
+      }, {
+         name: 'Vector multiplication',
+         alias: 'vecMulVec',
+         url: '/vector-mul-vector',
+         webpackEntry: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
+         htmlWebpackPlugin: {
+            filename: 'index.html',
+            template: './src/pages/matrix-mul-matrix/matrix-mul-matrix.pug',
+         },
+      }, {
+         name: 'Vector-number multiplication',
+         alias: 'vecMulNum',
+         url: 'vector-mul-num',
+         webpackEntry: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
+         htmlWebpackPlugin: {
+            filename: 'index.html',
+            template: './src/pages/matrix-mul-matrix/matrix-mul-matrix.pug',
+         },
+      }, {
+         name: 'Vector addition',
+         alias: 'vecPlusVec',
+         url: 'vector-plus-vector',
+         webpackEntry: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
+         htmlWebpackPlugin: {
+            filename: 'index.html',
+            template: './src/pages/matrix-mul-matrix/matrix-mul-matrix.pug',
+         },
+      }],
+   }
+   
+   pagesConfig.pages.forEach((page) => {
+      pagesConfig.hash[page.alias] = page;
+   });
+
+   if (module) {
+      module.exports = pagesConfig;
+   }

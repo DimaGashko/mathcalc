@@ -1,0 +1,17 @@
+extends ../templates/calcPage/calcPage
+ 
+block title
+   title Matrix Multiplication | #{pagesConfig.name}
+ 
+block contentTitle 
+   | Matrix Multiplication 
+
+block fullWidthContent
+   - fullWidthContent = true
+
+append workspace
+
+   .calc 
+      .calc__item.calc__matrixA
+      .calc__item.calc__matrixB
+      .calc__item.calc__matrixC

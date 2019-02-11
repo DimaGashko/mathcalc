@@ -8,6 +8,8 @@ const cssnano = require('cssnano');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const pagesConfig = require("./src/pages/templates/pagesConfig.pug")
+
 const htmlWebpackPluginBaseConfig = {
    favicon: "./src/img/favicon.png",
    minify: {
@@ -16,12 +18,39 @@ const htmlWebpackPluginBaseConfig = {
    },
 }
 
+const entries = {};
+const htmlWebpackPlugins = [];
+
+pagesConfig.pages.forEach((page) => {
+
+   // Entries
+   entries[page.alias] = page.webpackEntry;
+
+   // WebpackHtmlPlugin
+
+   if (!page.htmlWebpackPlugin) {
+      console.log(`Нет поля htmlWebpackPlugin в pagesConfig.${page.alias}`);
+   }
+
+   if (!page.webpackEntry) {
+      console.log(`Нет поля webpackEntry в pagesConfig.${page.alias}`);
+   }
+
+   htmlPlugin = new HtmlWebpackPlugin(merge(htmlWebpackPluginBaseConfig, {
+      filename: page.htmlWebpackPlugin.filename,
+      template: page.htmlWebpackPlugin.template,
+      chunks: [page.alias],
+   })),
+
+   htmlWebpackPlugins.push(htmlPlugin);
+
+});
+
 module.exports = {
    mode: 'development',
-   entry: {
-      index: './src/pages/index/index.ts',
-      matrixMulMatrix: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
-   },
+   entry: merge(entries, {
+
+   }),
    output: {
       filename: 'js/[name].[contenthash].js',
       path: path.resolve(__dirname, 'dist'),
@@ -91,20 +120,10 @@ module.exports = {
       extensions: ['.tsx', '.ts', '.js']
    },
    plugins: [
-      new HtmlWebpackPlugin(merge(htmlWebpackPluginBaseConfig, {
-         filename: 'index.html',
-         template: './src/pages/index/index.pug',
-         chunks: ['index'],
-      })),
-      new HtmlWebpackPlugin(merge(htmlWebpackPluginBaseConfig, {
-         filename: 'matrix-mul-matrix/index.html',
-         template: './src/pages/matrix-mul-matrix/matrix-mul-matrix.pug',
-         chunks: ['matrixMulMatrix'],
-      })),
       new webpack.HashedModuleIdsPlugin(),
       new MiniCssExtractPlugin({
          filename: "css/[name].[contenthash].css",
       }),
-   ],
+   ].concat(htmlWebpackPlugins), 
 
 };
