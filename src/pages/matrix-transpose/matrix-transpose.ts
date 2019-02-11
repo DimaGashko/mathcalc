@@ -1,5 +1,5 @@
 import '../templates/calcPage/calcPage';
-import './matrix-mul-matrix.sass';
+import './matrix-transpose.sass';
 
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
 import matrixMulMatrix from '../../calcFunctions/matrixMulMatrix';
