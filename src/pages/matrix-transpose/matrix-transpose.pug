@@ -1,15 +1,15 @@
 extends ../templates/calcPage/calcPage
  
 block title
-   title Matrix Transpose | #{pagesConfig.name}
+   title #{pagesConfig.hash.matrixTranspose.name} | #{pagesConfig.name}
  
 block contentTitle 
-   | Matrix Transpose 
+   | #{pagesConfig.hash.matrixTranspose.name} 
 
 block fullWidthContent
    - fullWidthContent = false
 
-append workspace
+append workspace 
 
    .calc 
       .calc__item.calc__matrixA

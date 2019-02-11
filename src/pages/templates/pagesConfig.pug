@@ -19,10 +19,10 @@
          name: 'Matrix addition',
          alias: 'matrixAddMatrix',
          url: '/matrix-plus-matrix',
-         webpackEntry: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
+         webpackEntry: './src/pages/matrix-plus-matrix/matrix-plus-matrix.ts',
          htmlWebpackPlugin: {
             filename: 'matrix-plus-matrix/index.html',
-            template: './src/pages/matrix-mul-matrix/matrix-mul-matrix.pug',
+            template: './src/pages/matrix-plus-matrix/matrix-plus-matrix.pug',
          },
       }, { 
          name: 'Matrix multiplication',
@@ -81,7 +81,7 @@
       }, {
          name: 'Vector-number multiplication',
          alias: 'vecMulNum',
-         url: 'vector-mul-num',
+         url: '/vector-mul-num',
          webpackEntry: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
          htmlWebpackPlugin: {
             filename: 'vector-mul-num/index.html',
@@ -90,7 +90,7 @@
       }, {
          name: 'Vector addition',
          alias: 'vecPlusVec',
-         url: 'vector-plus-vector',
+         url: '/vector-plus-vector',
          webpackEntry: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
          htmlWebpackPlugin: {
             filename: 'vector-plus-vector/index.html',
