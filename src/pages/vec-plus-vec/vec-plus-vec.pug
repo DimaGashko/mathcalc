@@ -1,0 +1,17 @@
+extends ../templates/calcPage/calcPage
+ 
+block title
+   title Matrix Addition | #{pagesConfig.name}
+ 
+block contentTitle 
+   | Matrix Addition 
+
+block fullWidthContent
+   - fullWidthContent = false
+
+append workspace
+
+   .calc 
+      .calc__item.calc__vecA
+      .calc__item.calc__vecB
+      .calc__item.calc__vecC

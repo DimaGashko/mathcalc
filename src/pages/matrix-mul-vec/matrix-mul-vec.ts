@@ -18,13 +18,11 @@ const matrixA = new MatrixDom({
 });
 const matrixB = new MatrixDom({
    title: 'Vector B',
-   minN: 1,
    maxN: 1,
 });
 const matrixC = new MatrixDom({
    title: 'A * B',
    disabled: true,
-   minN: 1,
    maxN: 1,
 });
 
