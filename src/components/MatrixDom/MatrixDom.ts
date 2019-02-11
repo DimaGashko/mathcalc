@@ -103,7 +103,7 @@ export default class MatrixDom extends EventListener {
    private controlsTmpl = controlsTmpl;
 
    // Throttle-задержка для всех render-ов
-   private _throttleDelay: number = 50; 
+   private _throttleDelay: number = 100; 
 
    constructor(config: IMatrixDomConfig = {}) {
       super();
