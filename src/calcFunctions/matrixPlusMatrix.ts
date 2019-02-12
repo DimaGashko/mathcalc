@@ -1,3 +1,5 @@
+import { Operator, plusOperator } from "./Operator";
+
 /**
  * Суммирует две матрицы
  * 
@@ -21,21 +23,18 @@
  * @returns сумма двух матриц
  */
 export default function matrixPlusMatrix(
-   a: number[][], b: number[][], operator: '+' | '-' = '+'
+   a: number[][], b: number[][], operator: Operator = plusOperator
 ): number[][] {
    const m1 = a.length;
    const m2 = b.length;
 
    if (m1 && m2 && (m1 !== m2 || a[0].length !== b[0].length)) {
       throw 'Matrices must be the same length';
-   } 
+   }
    
    return a.map((row, i) => {
       return row.map((item1, j) => {
-         const item2 = b[i][j];
-
-         if (operator === '+') return item1 + item2;
-         if (operator === '-') return item1 - item2;
+         return operator(item1, b[i][j]);
       });
    });
 }

@@ -1,3 +1,5 @@
+import { Operator, mulOperator } from "./Operator";
+
 /**
  * Умножает вектор на число
  * 
@@ -10,6 +12,8 @@
  * @param num число на которое нужно умножить вектор
  * @returns вектор умноженный на число
  */
-export default function vecMulNum(vec: number[], num: number): number[] { 
-   return vec.map(item => item * num);
+export default function vecMulNum(
+   vec: number[], num: number, operator: Operator = mulOperator
+): number[] { 
+   return vec.map(item => operator(item, num));
 }

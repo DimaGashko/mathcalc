@@ -1,3 +1,5 @@
+import { Operator, plusOperator } from "./Operator";
+
 /**
  * Суммирует два вектора
  * 
@@ -12,10 +14,12 @@
  * @param v1 первый вектор (массив чисел)
  * @param v2 второй вектор (массив чисел)
  */
-export default function vecPlusVec(v1: number[], v2: number[]): number[] {
+export default function vecPlusVec(
+   v1: number[], v2: number[], operator: Operator = plusOperator
+): number[] {
    if (v1.length !== v2.length) {
       throw 'Vectors must be the same length';
    }
 
-   return v1.map((item, i) => item + v2[i]);
+   return v1.map((item, i) => operator(item, v2[i]));
 }
