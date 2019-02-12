@@ -260,9 +260,7 @@ export default class MatrixDom extends EventListener {
     * @param item элемент матрицы / любое число
     */
    private formatItem(item: number): string {
-      item = Math.round(item * 1e4) / 1e4;
-
-      if (isNaN(item)) item = 0;
+      item = Math.round(item * 1e3) / 1e3;
 
       return item + '';
    }
@@ -383,7 +381,7 @@ export default class MatrixDom extends EventListener {
       const row = this._matrix[i];
       if (!row) return 0;
 
-      return row[j];
+      return row[j] || 0;
    }
 
    /**

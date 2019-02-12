@@ -47,5 +47,5 @@ vecB.addEvent('change-dimensions', () => {
 
 function calc() {
    const res = vecMulVec(vecA.getData()[0], vecB.getData()[0]);
-   els.res.innerHTML = res.toFixed(4) + '';
+   els.res.innerHTML = res.toFixed(3) + '';
 }

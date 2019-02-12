@@ -3,7 +3,7 @@ import './matrix-plus-matrix.sass';
 
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
 import matrixPlusMatrix from '../../calcFunctions/matrixPlusMatrix';
-import { Operator, plusOperator, minusOperator, baseOperators } from '../../calcFunctions/Operator';
+import { plusOperator, baseOperators } from '../../calcFunctions/Operator';
 
 const workspace = document.querySelector('.calc-workspace');
 
@@ -25,6 +25,8 @@ const matrixC = new MatrixDom({
    title: getTitle(),
    disabled: true,
 });
+
+(<any>window).c = matrixC;
 
 els.matrixA.appendChild(matrixA.root);
 els.matrixB.appendChild(matrixB.root);
@@ -69,6 +71,8 @@ function calc() {
    
    const res = matrixPlusMatrix(matrixA.getData(), matrixB.getData(), operator);
    matrixC.setData(res);
+
+   console.log(matrixA.getData(), matrixB.getData(), res);  
 }
 
 function getTitle() {

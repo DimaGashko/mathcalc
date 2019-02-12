@@ -22,6 +22,8 @@ const matrixB = new MatrixDom({
    disabled: true,
 });
 
+(<any>window).c = matrixB;
+
 els.matrixA.appendChild(matrixA.root);
 els.matrixB.appendChild(matrixB.root);
 
