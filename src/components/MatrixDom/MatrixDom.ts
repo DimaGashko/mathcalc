@@ -10,7 +10,7 @@ import './MatrixDom.sass';
 
 microTemplate.template.variable = 't';
 
-/** Интерфейс параметров, которые можно передать в конструктор MatrixDom */
+/** Параметры, которые можно передать в конструктор MatrixDom */
 export interface IMatrixDomConfig {
    title?: string,
    m?: number,
@@ -23,7 +23,7 @@ export interface IMatrixDomConfig {
    data?: number[][],
 }
 
-/** Интерфейс используемых элементов */
+/** Используемые элементы */
 interface IElements {
    data: HTMLElement,
    controls: HTMLElement,
