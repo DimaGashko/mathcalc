@@ -232,6 +232,7 @@ export default class MatrixDom extends EventListener {
       if (!val.length) return;
 
       const newData = val.split('\n') 
+         .slice(0, this._maxM)
          .filter(row => row.trim().length > 0)
          .map((row) => {
             return row
@@ -313,7 +314,9 @@ export default class MatrixDom extends EventListener {
    }
 
    private _getAreaText(): string {
-      return this.getData().map((row) => {
+      console.log(this._maxM);
+      
+      return this.getData().slice(0, this._maxM).map((row) => {
          return row
             .map(item => this.formatItem(item))
             .join(' ');
