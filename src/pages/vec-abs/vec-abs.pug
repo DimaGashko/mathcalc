@@ -1,0 +1,17 @@
+extends ../_templates/calcPage/calcPage
+ 
+block title
+   title #{pagesConfig.hash.vecAbs.name} | #{pagesConfig.name}
+ 
+block contentTitle 
+   | #{pagesConfig.hash.vecAbs.name}
+
+block fullWidthContent
+   - fullWidthContent = false
+
+append workspace
+
+   .calc 
+      .calc__item.calc__vecA
+      .calc__item.calc__vecRes |A| = 
+         span.calc__vecAbs 0 
