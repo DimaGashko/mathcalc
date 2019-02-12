@@ -11,11 +11,13 @@ block fullWidthContent
 
 append workspace
 
-   .controls
+   .controls 
       label Operation: 
          select.selectOperator
             option(value="+" selected) Addition
             option(value="-") Subtraction 
+            option(value="*") Multiplication (as "+")
+            option(value="/") Division (as "+")  
 
    .calc 
       .calc__item.calc__matrixA

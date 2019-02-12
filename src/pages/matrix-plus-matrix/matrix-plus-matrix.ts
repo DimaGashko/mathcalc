@@ -3,6 +3,7 @@ import './matrix-plus-matrix.sass';
 
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
 import matrixPlusMatrix from '../../calcFunctions/matrixPlusMatrix';
+import { Operator, plusOperator, minusOperator, baseOperators } from '../../calcFunctions/Operator';
 
 const workspace = document.querySelector('.calc-workspace');
 
@@ -59,19 +60,14 @@ els.selectOperator.addEventListener('change', () => {
 })
 
 function calc() {
-   const operator = els.selectOperator.value;
-   const aData = matrixA.getData();
-   const bData = matrixB.getData();
+   const operatorStr = els.selectOperator.value;
+   let operator = plusOperator;
 
-   let res: number[][] = null;
-   
-   if (operator === '+') {
-      res = matrixPlusMatrix(aData, bData, '+');
-
-   } else if (operator === '-') {
-      res = matrixPlusMatrix(aData, bData, '-');
+   if (operatorStr in baseOperators) {
+      operator = baseOperators[operatorStr];
    }
-
+   
+   const res = matrixPlusMatrix(matrixA.getData(), matrixB.getData(), operator);
    matrixC.setData(res);
 }
 

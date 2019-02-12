@@ -2,7 +2,7 @@ export interface Operator {
    (a: number, b: number): number
 }
 
-export const plusOperator: Operator= (a: number, b: number) => { 
+export const plusOperator: Operator = (a: number, b: number) => { 
    return a + b;
 }
 
@@ -16,4 +16,11 @@ export const mulOperator: Operator = (a: number, b: number) => {
 
 export const divOperator: Operator = (a: number, b: number) => { 
    return a / b;
+}
+
+export const baseOperators: {[type: string]: Operator} = {
+   '+': plusOperator,
+   '-': minusOperator,
+   '*': mulOperator,
+   '/': divOperator,
 }
