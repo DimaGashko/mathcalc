@@ -1,4 +1,4 @@
-import '../templates/calcPage/calcPage';
+import '../_templates/calcPage/calcPage';
 import './matrix-transpose.sass';
 
 import MatrixDom from '../../components/MatrixDom/MatrixDom';

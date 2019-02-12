@@ -8,7 +8,7 @@ const cssnano = require('cssnano');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const pagesConfig = require("./src/pages/templates/pagesConfig.pug")
+const pagesConfig = require("./src/pages/_templates/pagesConfig.pug")
 
 const htmlWebpackPluginBaseConfig = {
    favicon: "./src/img/favicon.png",

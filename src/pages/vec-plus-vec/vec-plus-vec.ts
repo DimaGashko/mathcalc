@@ -1,4 +1,4 @@
-import '../templates/calcPage/calcPage';
+import '../_templates/calcPage/calcPage';
 import './vec-plus-vec.sass';
 
 import MatrixDom from '../../components/MatrixDom/MatrixDom';

@@ -1,4 +1,4 @@
-import '../templates/basePage/basePage';
+import '../_templates/basePage/basePage';
 import './index.sass';
 
 console.log("Index");
