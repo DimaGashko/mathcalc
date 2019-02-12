@@ -108,6 +108,10 @@ export default class MatrixDom extends EventListener {
    private MIN_ITEM_VALUE = Number.MIN_SAFE_INTEGER;
    private MAX_ITEM_VALUE = Number.MAX_SAFE_INTEGER;
 
+   private KEYS = {
+      'ok': 13,
+   }
+
    constructor(config: IMatrixDomConfig = {}) {
       super();
 
@@ -164,9 +168,14 @@ export default class MatrixDom extends EventListener {
          if (targ.classList.contains('matrixCell__input')) {
             this.onCellChange(<HTMLInputElement>targ);
 
+            if (event.keyCode === 13) {
+               this.updateCell(<HTMLInputElement>targ);
+            } 
+
          } else if (targ.classList.contains('matrixDom__area')) {
             this.onAreaType();
-         }
+
+         } 
       });
 
       this._root.addEventListener('change', (event) => {
@@ -195,6 +204,15 @@ export default class MatrixDom extends EventListener {
          }
 
       }, true);
+
+      this._root.addEventListener('blur', (event) => {
+         const targ = <HTMLElement>event.target;
+
+         if (targ.classList.contains('matrixCell__input')) { 
+            this.updateCell(<HTMLInputElement>targ);
+         }
+
+      }, true);
    }
 
    private onCellChange(cellInput: HTMLInputElement) {
@@ -208,6 +226,16 @@ export default class MatrixDom extends EventListener {
       if (isNaN(i) || isNaN(j)) return;
 
       this.set(i, j, val);
+   }
+
+   private updateCell(cellInput: HTMLInputElement) {
+      const cell = cellInput.closest('.matrixCell');
+
+      const i = +cell.getAttribute('data-cell-i');
+      const j = +cell.getAttribute('data-cell-j');
+
+      // Случаи, когда i || j - NaN обработает this.get
+      cellInput.value = this.get(i, j) + '';
    }
 
    /**
