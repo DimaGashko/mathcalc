@@ -66,7 +66,7 @@ export default class MatrixDom extends EventListener {
 
    /** Количество строк матрицы */
    private _m: number;
-      
+
    /** Количество столбцов матрицы */
    private _n: number;
 
@@ -103,7 +103,7 @@ export default class MatrixDom extends EventListener {
    private controlsTmpl = controlsTmpl;
 
    // Throttle-задержка для всех render-ов
-   private _throttleDelay: number = 100; 
+   private THROTTLE_DELAY: number = 40;
 
    private MIN_ITEM_VALUE = Number.MIN_SAFE_INTEGER;
    private MAX_ITEM_VALUE = Number.MAX_SAFE_INTEGER;
@@ -122,7 +122,7 @@ export default class MatrixDom extends EventListener {
       const customData = 'data' in config
          && config.data.length > 0
          && config.data[0].length > 0;
-      
+
       // Установка данных обязана быть перед изменением m, n и их лимитов
       if (customData) this._defaultMatrix = config.data;
 
@@ -142,7 +142,7 @@ export default class MatrixDom extends EventListener {
 
       this._createRoot();
       this._initEvents();
-      
+
       this._reset();
       this.render();
    }
@@ -168,14 +168,14 @@ export default class MatrixDom extends EventListener {
          if (targ.classList.contains('matrixCell__input')) {
             this.onCellChange(<HTMLInputElement>targ);
 
-            if (event.keyCode === 13) {
+            if (event.keyCode === this.KEYS.ok) {
                this.updateCell(<HTMLInputElement>targ);
-            } 
+            }
 
          } else if (targ.classList.contains('matrixDom__area')) {
             this.onAreaType();
 
-         } 
+         }
       });
 
       this._root.addEventListener('change', (event) => {
@@ -199,7 +199,7 @@ export default class MatrixDom extends EventListener {
          const isInputForSelect = targ.classList.contains('matrixCell__input')
             || targ.classList.contains('matrixDom__dimensionsControl');
 
-         if (isInputForSelect) { 
+         if (isInputForSelect) {
             (<HTMLInputElement>targ).select();
          }
 
@@ -208,7 +208,7 @@ export default class MatrixDom extends EventListener {
       this._root.addEventListener('blur', (event) => {
          const targ = <HTMLElement>event.target;
 
-         if (targ.classList.contains('matrixCell__input')) { 
+         if (targ.classList.contains('matrixCell__input')) {
             this.updateCell(<HTMLInputElement>targ);
          }
 
@@ -242,7 +242,7 @@ export default class MatrixDom extends EventListener {
     * Форматирует число для вывода
     * @param item элемент матрицы / любое число
     */
-   private formatItem(item: number): string { 
+   private formatItem(item: number): string {
       item = Math.round(item * 1e4) / 1e4;
 
       return item + '';
@@ -251,7 +251,7 @@ export default class MatrixDom extends EventListener {
    /**
     * Возвращает отформатированный для вывода элемент
     */
-   private getFormated(i: number, j: number): string { 
+   private getFormated(i: number, j: number): string {
       return this.formatItem(this.get(i, j)) + '';
    }
 
@@ -261,7 +261,7 @@ export default class MatrixDom extends EventListener {
       const val = this.els.area.value.trim();
       if (!val.length) return;
 
-      const newData = val.split('\n') 
+      const newData = val.split('\n')
          .slice(0, this._maxM)
          .filter(row => row.trim().length > 0)
          .map((row) => {
@@ -285,15 +285,15 @@ export default class MatrixDom extends EventListener {
       this.renderData();
    }
 
-   private onView() {
+   private onView = throttle(250, () => {
       this.toggleViewType();
-   }
+   });
 
    private onReset() {
       this.reset();
    }
 
-   private render = throttle(this._throttleDelay, () => {
+   private render = throttle(this.THROTTLE_DELAY, () => {
       this._root.innerHTML = microTemplate.template(this.mainTmpl, this);
 
       this.els.data = this.root.querySelector('.matrixDom__data');
@@ -304,18 +304,18 @@ export default class MatrixDom extends EventListener {
       this.renderControls();
    });
 
-   private renderData = throttle(this._throttleDelay, () => {
+   private renderData = throttle(this.THROTTLE_DELAY, () => {
       if (!this.els.data) return;
 
       this.els.data.innerHTML = microTemplate
          .template(this.dataTmpl, this);
 
       this.els.area = this.root.querySelector('.matrixDom__area');
-      
-      this.correctAreaSize();
-   }); 
 
-   private renderControls = throttle(this._throttleDelay, () => {
+      this.correctAreaSize();
+   });
+
+   private renderControls = throttle(this.THROTTLE_DELAY, () => {
       if (!this.els.controls) return;
 
       this.els.controls.innerHTML = microTemplate
@@ -326,7 +326,7 @@ export default class MatrixDom extends EventListener {
       this.els.mDimensions = this.root.querySelector('.matrixDom__mDimensions');
       this.els.nDimensions = this.root.querySelector('.matrixDom__nDimensions');
    });
-   
+
    private correctAreaSize() {
       if (this.viewType !== 'area') return;
 
@@ -345,7 +345,7 @@ export default class MatrixDom extends EventListener {
 
    private _getAreaText(): string {
       console.log(this._maxM);
-      
+
       return this.getData().slice(0, this._maxM).map((row) => {
          return row
             .map(item => this.formatItem(item))
@@ -392,7 +392,8 @@ export default class MatrixDom extends EventListener {
       this.viewType = (this.viewType === 'cell')
          ? 'area' : 'cell';
 
-      this.render();
+      this.renderData();
+      this.renderControls();
    }
 
    public _reset() {
@@ -400,14 +401,14 @@ export default class MatrixDom extends EventListener {
 
       this._matrix = [];
 
-      this._defaultMatrix.forEach((row, i) => { 
-         row.forEach((item, j) => { 
+      this._defaultMatrix.forEach((row, i) => {
+         row.forEach((item, j) => {
             this.set(i, j, item);
          });
       });
    }
 
-   public reset() { 
+   public reset() {
       this._reset();
       this.renderData();
    }
@@ -532,7 +533,7 @@ export default class MatrixDom extends EventListener {
       this.render();
    }
 
-   public get minM(): number { 
+   public get minM(): number {
       return this._minM;
    }
 
@@ -550,7 +551,7 @@ export default class MatrixDom extends EventListener {
       }
    }
 
-   public get minN(): number { 
+   public get minN(): number {
       return this._minN;
    }
 
@@ -568,7 +569,7 @@ export default class MatrixDom extends EventListener {
       }
    }
 
-   public get maxM(): number { 
+   public get maxM(): number {
       return this._maxM;
    }
 
@@ -586,7 +587,7 @@ export default class MatrixDom extends EventListener {
       }
    }
 
-   public get maxN(): number { 
+   public get maxN(): number {
       return this._maxN;
    }
 
@@ -598,7 +599,7 @@ export default class MatrixDom extends EventListener {
    private _setMaxN(val: number) {
       if (val > 500) val = 500;
       this._maxN = val;
-      
+
       if (this._n > this._maxN) {
          this._n = this._maxN;
       }
