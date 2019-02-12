@@ -1,4 +1,4 @@
-import { Operator, plusOperator } from "./Operator";
+import { Operator, plusOperator, mulOperator } from "./Operator";
 
 /**
  * Умножает матрицу на число
@@ -18,7 +18,7 @@ import { Operator, plusOperator } from "./Operator";
  * @returns матрица умноженная на число
 */
 export default function matrixMulNum(
-   matrix: number[][], num: number, operator: Operator = plusOperator
+   matrix: number[][], num: number, operator: Operator = mulOperator
 ): number[][] {
    return matrix.map((row) => { 
       return row.map((item) => operator(item, num));
