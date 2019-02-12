@@ -105,6 +105,9 @@ export default class MatrixDom extends EventListener {
    // Throttle-задержка для всех render-ов
    private _throttleDelay: number = 100; 
 
+   private MIN_ITEM_VALUE = Number.MIN_SAFE_INTEGER;
+   private MAX_ITEM_VALUE = Number.MAX_SAFE_INTEGER;
+
    constructor(config: IMatrixDomConfig = {}) {
       super();
 
@@ -343,6 +346,9 @@ export default class MatrixDom extends EventListener {
       if (!this._matrix[i]) {
          this._matrix[i] = [];
       }
+
+      if (val < Number.MIN_SAFE_INTEGER) val = this.MIN_ITEM_VALUE;
+      else if (val > Number.MAX_SAFE_INTEGER) val = this.MAX_ITEM_VALUE;
 
       this._matrix[i][j] = (!isNaN(val)) ? val : 0;
 

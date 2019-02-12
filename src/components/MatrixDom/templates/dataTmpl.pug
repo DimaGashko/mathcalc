@@ -11,6 +11,7 @@
          .matrixCell(data-cell-i!="<%= i %>" data-cell-j!="<%= j %>")
             input.matrixCell__input(
                type="number" value!="<%= t.getFormated(i, j) %>" 
+               min!="<%= t.MIN_ITEM_VALUE %>" max!="<%= t.MAX_ITEM_VALUE %>"
             )&attributes({"<%= disabled %>": "true"}) 
          <% } %> 
       <% } %>
@@ -18,7 +19,7 @@
    <% } else if (t.viewType === 'area') { %>
    .matrixDom__areaContainer
       textarea.matrixDom__area(
-         placeholder="1 2 3.9\n4 5 6.2\n7 8 9.1"
+         placeholder="1 2 3 4.31\n1, 3, 4, 5\n1,2,3,4,5\n1|2|3"
       )&attributes({"<%= disabled %>": "true"}) <%= t._getAreaText() %>
        
    <% } else { %>
