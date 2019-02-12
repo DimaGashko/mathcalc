@@ -3,15 +3,16 @@ import './matrix-plus-matrix.sass';
 
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
 import matrixPlusMatrix from '../../calcFunctions/matrixPlusMatrix';
+
 const workspace = document.querySelector('.calc-workspace');
 
 const els = {
    matrixA: workspace.querySelector('.calc__matrixA'),
    matrixB: workspace.querySelector('.calc__matrixB'),
    matrixC: workspace.querySelector('.calc__matrixC'),
-}
 
-console.log('Matrix addition');
+   selectOperator: <HTMLSelectElement>workspace.querySelector('.selectOperator'),
+}
 
 const matrixA = new MatrixDom({
    title: 'Matrix A',
@@ -20,7 +21,7 @@ const matrixB = new MatrixDom({
    title: 'Matrix B',
 });
 const matrixC = new MatrixDom({
-   title: 'A + B',
+   title: getTitle(),
    disabled: true,
 });
 
@@ -52,7 +53,28 @@ matrixB.addEvent('change-dimensions', () => {
    calc();
 });
 
+els.selectOperator.addEventListener('change', () => {
+   matrixC.title = getTitle();
+   calc();
+})
+
 function calc() {
-   const res = matrixPlusMatrix(matrixA.getData(), matrixB.getData());
+   const operator = els.selectOperator.value;
+   const aData = matrixA.getData();
+   const bData = matrixB.getData();
+
+   let res: number[][] = null;
+   
+   if (operator === '+') {
+      res = matrixPlusMatrix(aData, bData, '+');
+
+   } else if (operator === '-') {
+      res = matrixPlusMatrix(aData, bData, '-');
+   }
+
    matrixC.setData(res);
+}
+
+function getTitle() {
+   return `A ${els.selectOperator.value} B`;
 }
