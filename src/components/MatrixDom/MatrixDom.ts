@@ -163,10 +163,9 @@ export default class MatrixDom extends EventListener {
 
          if (targ.classList.contains('matrixCell__input')) {
             this.onCellChange(<HTMLInputElement>targ);
-         }
 
-         if (targ.classList.contains('matrixDom__area')) {
-            this.onAreaType(event);
+         } else if (targ.classList.contains('matrixDom__area')) {
+            this.onAreaType();
          }
       });
 
@@ -179,6 +178,9 @@ export default class MatrixDom extends EventListener {
 
          } else if (targ.classList.contains('matrixCell__input')) {
             this.onCellChange(<HTMLInputElement>targ);
+
+         } if (targ.classList.contains('matrixDom__area')) {
+            this.onAreaType();
          }
       });
 
@@ -225,7 +227,7 @@ export default class MatrixDom extends EventListener {
       return this.formatItem(this.get(i, j)) + '';
    }
 
-   private onAreaType(event: KeyboardEvent) {
+   private onAreaType() {
       if (this.viewType !== 'area') return;
 
       const val = this.els.area.value.trim();
