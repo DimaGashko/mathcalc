@@ -8,7 +8,7 @@ const workspace = document.querySelector('.calc-workspace');
 
 const els = {
    vecA: workspace.querySelector('.calc__vecA'),
-   vecAbs: workspace.querySelector('.calc__vecAbs'),
+   res: workspace.querySelector('.calc__resVal'),
 }
 
 const vecA = new MatrixDom({
@@ -30,5 +30,5 @@ vecA.addEvent('change-dimensions', () => {
 
 function calc() {
    const res = vecAbs(vecA.getData()[0]);
-   els.vecAbs.innerHTML = res.toFixed(3);   
+   els.res.innerHTML = res.toFixed(3);   
 }

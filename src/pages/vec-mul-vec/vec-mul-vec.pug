@@ -1,0 +1,18 @@
+extends ../_templates/calcPage/calcPage
+ 
+block title
+   title #{pagesConfig.hash.vecPlusVec.name} | #{pagesConfig.name}
+ 
+block contentTitle 
+   | #{pagesConfig.hash.vecPlusVec.name}
+
+block fullWidthContent
+   - fullWidthContent = false
+
+append workspace
+
+   .calc 
+      .calc__item.calc__vecA
+      .calc__item.calc__vecB
+      .calc__item.calc__res |A * B| = 
+         span.calc__resVal 0
