@@ -15,6 +15,7 @@ export const mulOperator: Operator = (a: number, b: number) => {
 }
 
 export const divOperator: Operator = (a: number, b: number) => { 
+   if (b === 0) return NaN;
    return a / b;
 }
 

@@ -238,12 +238,31 @@ export default class MatrixDom extends EventListener {
       cellInput.value = this.get(i, j) + '';
    }
 
+   private validate() {
+      let valid = true;
+
+      this._matrix.forEach((row) => {
+         row.forEach((item) => {
+            if (isNaN(item)) valid = false;
+         })
+      });
+
+      if (valid) {
+         this._root.classList.remove('matrixDom-invalid');
+      
+      } else {
+         this._root.classList.add('matrixDom-invalid');
+      }
+   }
+
    /**
     * Форматирует число для вывода
     * @param item элемент матрицы / любое число
     */
    private formatItem(item: number): string {
       item = Math.round(item * 1e4) / 1e4;
+
+      if (isNaN(item)) item = 0;
 
       return item + '';
    }
@@ -344,8 +363,6 @@ export default class MatrixDom extends EventListener {
    }
 
    private _getAreaText(): string {
-      console.log(this._maxM);
-
       return this.getData().slice(0, this._maxM).map((row) => {
          return row
             .map(item => this.formatItem(item))
@@ -366,7 +383,7 @@ export default class MatrixDom extends EventListener {
       const row = this._matrix[i];
       if (!row) return 0;
 
-      return row[j] || 0;
+      return row[j];
    }
 
    /**
@@ -383,7 +400,9 @@ export default class MatrixDom extends EventListener {
       if (val < Number.MIN_SAFE_INTEGER) val = this.MIN_ITEM_VALUE;
       else if (val > Number.MAX_SAFE_INTEGER) val = this.MAX_ITEM_VALUE;
 
-      this._matrix[i][j] = (!isNaN(val)) ? val : 0;
+      this._matrix[i][j] = val;
+      
+      this.validate();
 
       this.emit('change-data');
    }

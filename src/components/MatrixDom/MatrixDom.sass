@@ -17,6 +17,15 @@ $bracketsPadding: 12px
    overflow: auto
 
    &-disabled
+
+   &-invalid
+      $color: #f44336
+
+      .matrixCell__input
+         color: $color
+
+         &::placeholder 
+            color: $color
    
 .matrixDom__title
    text-align: center
