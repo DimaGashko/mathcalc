@@ -21,7 +21,7 @@ els.vecA.appendChild(vecA.root);
 calc();
 
 vecA.addEvent('change-data', () => {
-   calc();
+   calc(); 
 });
 
 vecA.addEvent('change-dimensions', () => {
@@ -30,6 +30,5 @@ vecA.addEvent('change-dimensions', () => {
 
 function calc() {
    const res = vecAbs(vecA.getData()[0]);
-   els.vecAbs.innerHTML = res.toFixed(3);
-   
+   els.vecAbs.innerHTML = res.toFixed(3);   
 }
