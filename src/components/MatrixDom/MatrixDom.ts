@@ -63,7 +63,7 @@ export default class MatrixDom extends EventListener {
     * this._matrix просто не будут использованы (но если m, n увеличится, 
     * то они снова будут видимы))
     */
-   private _matrix: number[][];
+   private _matrix: number[][] = [];
 
    /** Количество строк матрицы */
    private _m: number;
@@ -511,6 +511,18 @@ export default class MatrixDom extends EventListener {
       if (this.els.nDimensions && this.els.mDimensions) {
          this.els.mDimensions.value = this._m + '';
          this.els.nDimensions.value = this._n + '';
+      }
+      
+      for (let i = 0; i < this._m; i++) {
+         if (!this._matrix[i]) {
+            this._matrix[i] = new Array(this._n).fill(0); 
+         }
+
+         for (let j = 0; j < this._n; j++) {
+            if (this._matrix[i][j] != undefined) continue;
+            
+            this._matrix[i][j] = 0;
+         }
       }
 
       this.emit('change-dimensions');
