@@ -286,19 +286,27 @@ export default class MatrixDom extends EventListener {
       const val = this.els.area.value.trim();
       if (!val.length) return;
 
-      const newData = val.split('\n')
+      const data = val.split('\n')
          .slice(0, this._maxM)
          .filter(row => row.trim().length > 0)
          .map((row) => {
             return row
                .replace(/^[\D]+|[\D]+$/g, '') // trim к цифрам на краях
                .replace(/[\s,]+/g, ',').split(',')
-               .map((item) => parseFloat(item));
+               .map((item) => parseFloat(item) || 0);
          });
+      
+      const maxN = data.map(row => row.length).sort((a, b) => b - a)[0];
+
+      data.forEach((row) => {
+         if (row.length >= maxN) return;
+
+         row.push(...new Array(maxN - row.length).fill(0));
+      });
 
       this._matrix = [];
 
-      this._setData(newData);
+      this._setData(data);
       this.renderControls();
    }
 
