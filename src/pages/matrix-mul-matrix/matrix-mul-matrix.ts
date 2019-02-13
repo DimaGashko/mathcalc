@@ -10,8 +10,6 @@ const els = {
    matrixB: workspace.querySelector('.calc__matrixB'),
    matrixC: workspace.querySelector('.calc__matrixC'),
 }
-
-console.log('Matrix multiplication');
  
 const matrixA = new MatrixDom({
    title: 'Matrix A',

@@ -6,6 +6,7 @@ import * as mainTmpl from './templates/mainTmpl.pug';
 import * as dataTmpl from './templates/dataTmpl.pug';
 import * as controlsTmpl from './templates/controlsTmpl.pug';
 
+import '../../polyfills/closestPolyfill';
 import './MatrixDom.sass';
 
 microTemplate.template.variable = 't';

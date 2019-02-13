@@ -10,8 +10,6 @@ const els = {
    matrixA: workspace.querySelector('.calc__matrixA'),
    matrixT: workspace.querySelector('.calc__matrixT'),
 }
-
-console.log('Matrix transpose');
  
 const matrixA = new MatrixDom({
    title: 'Matrix A',
