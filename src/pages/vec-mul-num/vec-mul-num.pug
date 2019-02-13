@@ -1,0 +1,28 @@
+extends ../_templates/calcPage/calcPage
+ 
+block title
+   title #{pagesConfig.hash.vecMulNum.name} | #{pagesConfig.name}
+  
+block contentTitle 
+   | #{pagesConfig.hash.vecMulNum.name}
+
+block fullWidthContent
+   - fullWidthContent = false
+
+append workspace
+
+   table.controls
+         tr 
+            td Operation: 
+            td 
+               select.selectOperator
+                  option(value="*" selected) Multiplication
+                  option(value="/") Division 
+         tr
+            td Number: 
+            td 
+               input.selectNumber(type="number" value="2" min=-1e6+1 max=1e6-1)
+
+   .calc 
+      .calc__item.calc__vecA
+      .calc__item.calc__vecB
