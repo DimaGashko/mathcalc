@@ -3,7 +3,7 @@ import './matrix-plus-matrix.sass';
 
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
 import matrixPlusMatrix from '../../calcFunctions/matrixPlusMatrix';
-import { plusOperator, baseOperators } from '../../calcFunctions/Operator';
+import { plusOperator, baseOperators, Operator } from '../../calcFunctions/Operator';
 
 const workspace = document.querySelector('.calc-workspace');
 
@@ -12,7 +12,8 @@ const els = {
    matrixB: workspace.querySelector('.calc__matrixB'),
    matrixC: workspace.querySelector('.calc__matrixC'),
 
-   selectOperator: <HTMLSelectElement>workspace.querySelector('.selectOperator'),
+   selectOperator: <HTMLSelectElement>workspace
+      .querySelector('.selectOperator'),
 }
 
 const matrixA = new MatrixDom({
@@ -25,8 +26,6 @@ const matrixC = new MatrixDom({
    title: getTitle(),
    disabled: true,
 });
-
-(<any>window).c = matrixC;
 
 els.matrixA.appendChild(matrixA.root);
 els.matrixB.appendChild(matrixB.root);
@@ -61,20 +60,27 @@ els.selectOperator.addEventListener('change', () => {
    calc();
 })
 
-function calc() {
+function calc() {   
+   const res = matrixPlusMatrix(
+      matrixA.getData(),
+      matrixB.getData(),
+      getOperator(),
+   );
+
+   matrixC.setData(res); 
+}
+
+function getTitle() {
+   return `A ${getOperator().symbol} B`;
+}
+
+function getOperator(): Operator {
    const operatorStr = els.selectOperator.value;
    let operator = plusOperator;
 
    if (operatorStr in baseOperators) {
       operator = baseOperators[operatorStr];
    }
-   
-   const res = matrixPlusMatrix(matrixA.getData(), matrixB.getData(), operator);
-   matrixC.setData(res);
 
-   console.log(matrixA.getData(), matrixB.getData(), res);  
-}
-
-function getTitle() {
-   return `A ${els.selectOperator.value} B`;
+   return operator;
 }

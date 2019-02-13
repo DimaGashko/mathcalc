@@ -241,11 +241,18 @@ export default class MatrixDom extends EventListener {
    private validate() {
       let valid = true;
 
-      this._matrix.forEach((row) => {
-         row.forEach((item) => {
-            if (isNaN(item)) valid = false;
-         })
-      });
+      mainLoop:
+      for (let i = 0; i < this._m; i++) {
+         for (let j = 0; j < this.n; j++) {
+            const item = (this._matrix[i])
+               ? this._matrix[i][j] : NaN;
+
+            if (!isNaN(item)) continue
+
+            valid = false;
+            break mainLoop;
+         }
+      }
 
       if (valid) {
          this._root.classList.remove('matrixDom-invalid');
