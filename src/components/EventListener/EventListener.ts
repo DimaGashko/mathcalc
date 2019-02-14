@@ -1,3 +1,5 @@
+import { throttle } from "throttle-debounce";
+
 /**
  * @class
  * 
@@ -84,4 +86,6 @@ export default class EventListener {
       }
 
    }
+
+   throttleEmit = throttle(50, this.emit);
 }

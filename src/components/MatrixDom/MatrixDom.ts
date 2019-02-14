@@ -104,7 +104,7 @@ export default class MatrixDom extends EventListener {
    private controlsTmpl = controlsTmpl;
 
    // Throttle-задержка для всех render-ов
-   private THROTTLE_DELAY: number = 40;
+   private THROTTLE_DELAY: number = 100;
 
    private MIN_ITEM_VALUE = Number.MIN_SAFE_INTEGER;
    private MAX_ITEM_VALUE = Number.MAX_SAFE_INTEGER;
@@ -153,8 +153,6 @@ export default class MatrixDom extends EventListener {
          const targ = <HTMLElement>event.target;
 
          if (targ.classList.contains('matrixDom__view')) {
-            console.log('onView');
-            
             this.onView();
 
          } else if (targ.classList.contains('matrixDom__reset')) {
@@ -163,7 +161,7 @@ export default class MatrixDom extends EventListener {
 
          }
       });
-      
+
       this._root.addEventListener('keyup', (event) => {
          if (this._isDisabled) return;
          const targ = <HTMLElement>event.target;
@@ -241,7 +239,7 @@ export default class MatrixDom extends EventListener {
       cellInput.value = this.get(i, j) + '';
    }
 
-   private validate() {
+   private validate = throttle(this.THROTTLE_DELAY, () => {
       let valid = true;
 
       mainLoop:
@@ -259,11 +257,11 @@ export default class MatrixDom extends EventListener {
 
       if (valid) {
          this._root.classList.remove('matrixDom-invalid');
-      
+
       } else {
          this._root.classList.add('matrixDom-invalid');
       }
-   }
+   });
 
    /**
     * Форматирует число для вывода
@@ -282,7 +280,7 @@ export default class MatrixDom extends EventListener {
       return this.formatItem(this.get(i, j)) + '';
    }
 
-   private onAreaType() {
+   private onAreaType = throttle(this.THROTTLE_DELAY, () => {
       if (this.viewType !== 'area') return;
 
       const val = this.els.area.value.trim();
@@ -297,7 +295,7 @@ export default class MatrixDom extends EventListener {
                .replace(/[\s,]+/g, ',').split(',')
                .map((item) => parseFloat(item) || 0);
          });
-      
+
       const maxN = data.map(row => row.length).sort((a, b) => b - a)[0];
 
       data.forEach((row) => {
@@ -310,7 +308,7 @@ export default class MatrixDom extends EventListener {
 
       this._setData(data);
       this.renderControls();
-   }
+   });
 
    private onDimensionsChange() {
       const m = +this.els.mDimensions.value;
@@ -320,7 +318,7 @@ export default class MatrixDom extends EventListener {
       this.renderData();
    }
 
-   private onView = throttle(250, () => { 
+   private onView = throttle(250, () => {
       this.toggleViewType();
    });
 
@@ -417,10 +415,10 @@ export default class MatrixDom extends EventListener {
       else if (val > Number.MAX_SAFE_INTEGER) val = this.MAX_ITEM_VALUE;
 
       this._matrix[i][j] = val;
-      
+
       this.validate();
 
-      this.emit('change-data');
+      this.throttleEmit('change-data');
    }
 
    public toggleViewType() {
@@ -487,10 +485,10 @@ export default class MatrixDom extends EventListener {
          });
       });
 
-      this.emit('change-data');
+      this.throttleEmit('change-data');
    }
 
-   public setData(data: number[][]) {
+   public setData(data: number[][]) {      
       this._setData(data);
 
       this.renderData();
@@ -514,20 +512,20 @@ export default class MatrixDom extends EventListener {
          this.els.mDimensions.value = this._m + '';
          this.els.nDimensions.value = this._n + '';
       }
-      
+
       for (let i = 0; i < this._m; i++) {
          if (!this._matrix[i]) {
-            this._matrix[i] = new Array(this._n).fill(0); 
+            this._matrix[i] = new Array(this._n).fill(0);
          }
 
          for (let j = 0; j < this._n; j++) {
             if (this._matrix[i][j] != undefined) continue;
-            
+
             this._matrix[i][j] = 0;
          }
       }
 
-      this.emit('change-dimensions');
+      this.throttleEmit('change-dimensions');
    }
 
    public get m(): number {
@@ -565,7 +563,7 @@ export default class MatrixDom extends EventListener {
 
       this.els.title.innerHTML = this._title;
 
-      this.emit('change-title');
+      this.throttleEmit('change-title');
    }
 
    public get viewType(): ViewType {
