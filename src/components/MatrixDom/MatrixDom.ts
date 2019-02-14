@@ -153,6 +153,8 @@ export default class MatrixDom extends EventListener {
          const targ = <HTMLElement>event.target;
 
          if (targ.classList.contains('matrixDom__view')) {
+            console.log('onView');
+            
             this.onView();
 
          } else if (targ.classList.contains('matrixDom__reset')) {
@@ -161,7 +163,7 @@ export default class MatrixDom extends EventListener {
 
          }
       });
-
+      
       this._root.addEventListener('keyup', (event) => {
          if (this._isDisabled) return;
          const targ = <HTMLElement>event.target;
@@ -190,7 +192,7 @@ export default class MatrixDom extends EventListener {
             this.onCellChange(<HTMLInputElement>targ);
 
          } if (targ.classList.contains('matrixDom__area')) {
-            this.onAreaType();
+            //this.onAreaType();
          }
       });
 
@@ -318,7 +320,7 @@ export default class MatrixDom extends EventListener {
       this.renderData();
    }
 
-   private onView = throttle(250, () => {
+   private onView = throttle(250, () => { 
       this.toggleViewType();
    });
 
