@@ -80,7 +80,7 @@ export default class MatrixDom extends EventListener {
    private _viewType: ViewType = 'cell';
 
    /** HTML-контейнер компонента */
-   private _root: HTMLElement = null;
+   protected _root: HTMLElement = null;
 
    /** HTML-элементы компонента */
    private els: IElements = {
@@ -367,7 +367,7 @@ export default class MatrixDom extends EventListener {
       this.els.area.style.height = this.els.area.scrollHeight + 'px';
    }
 
-   private _createRoot() {
+   protected _createRoot() {
       this._root = document.createElement('div');
       this._root.className = 'matrixDom';
 

@@ -1,10 +1,12 @@
 import MatrixDom from "./MatrixDom";
 
+import "./VectorDom.sass";
+
 export interface IVectorDomConfig {
    title?: string,
-   n?: number,
-   minN?: number,
-   maxN?: number,
+   m?: number,
+   minM?: number,
+   maxM?: number,
    disabled?: boolean,
    data?: number[][],
 }
@@ -13,15 +15,21 @@ export default class VectorDom extends MatrixDom {
    constructor(config: IVectorDomConfig) {
       super({
          title: config.title,
-         n: config.n,
-         minN: config.minN,
-         maxN: config.maxN,
+         m: config.m,
+         minM: config.minM,
+         maxM: config.maxM,
          disabled: config.disabled,
          data: config.data,
-         m: 1,
-         minM: 1,
-         maxM: 1,
+         n: 1,
+         minN: 1,
+         maxN: 1,
       });
 
+   }
+
+   protected _createRoot() {
+      super._createRoot();
+
+      this._root.className += ' MatrixDom-isVector';
    }
 }
