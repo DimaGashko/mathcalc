@@ -120,26 +120,26 @@ export default class MatrixDom extends EventListener {
    }
 
    private init(config: IMatrixDomConfig): void {
-      const customData = 'data' in config
+      const customData = config.data
          && config.data.length > 0
          && config.data[0].length > 0;
 
       // Установка данных обязана быть перед изменением m, n и их лимитов
       if (customData) this._defaultMatrix = config.data;
 
-      if ('m' in config) this._defaultM = config.m;
+      if (config.m !== void 0) this._defaultM = config.m;
       else if (customData) this._defaultM = config.data.length;
 
-      if ('n' in config) this._defaultN = config.n;
+      if (config.n !== void 0) this._defaultN = config.n;
       else if (customData) this._defaultN = config.data[0].length;
 
-      if ('minM' in config) this._setMinM(config.minM);
-      if ('minN' in config) this._setMinN(config.minN);
-      if ('maxM' in config) this._setMaxM(config.maxM);
-      if ('maxN' in config) this._setMaxN(config.maxN);
+      if (config.minM !== void 0) this._setMinM(config.minM);
+      if (config.minN !== void 0) this._setMinN(config.minN);
+      if (config.maxM !== void 0) this._setMaxM(config.maxM);
+      if (config.maxN !== void 0) this._setMaxN(config.maxN);
 
-      if ('title' in config) this._title = config.title;
-      if ('disabled' in config) this._isDisabled = config.disabled;
+      if (config.title !== void 0) this._title = config.title;
+      if (config.disabled !== void 0) this._isDisabled = config.disabled;
 
       this._createRoot();
       this._initEvents();

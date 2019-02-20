@@ -2,7 +2,9 @@ import '../_templates/calcPage/calcPage';
 import './matrix-mul-vec.sass';
 
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
+import VectorDom from '../../components/MatrixDom/VectorDom';
 import matrixMulVec from '../../calcFunctions/matrixMulVec';
+
 const workspace = document.querySelector('.calc-workspace');
 
 const els = {
@@ -14,45 +16,43 @@ const els = {
 const matrixA = new MatrixDom({
    title: 'Matrix A',
 });
-const matrixB = new MatrixDom({
+const vectorB = new VectorDom({
    title: 'Vector B',
-   maxN: 1,
 });
 const matrixC = new MatrixDom({
    title: 'A * B',
    disabled: true,
-   maxN: 1,
 });
 
 els.matrixA.appendChild(matrixA.root);
-els.matrixB.appendChild(matrixB.root);
+els.matrixB.appendChild(vectorB.root);
 els.matrixC.appendChild(matrixC.root);
 
-matrixB.m = matrixA.n;
+vectorB.m = matrixA.n;
 calc();
 
 matrixA.addEvent('change-data', () => {
    calc();
 });
 
-matrixB.addEvent('change-data', () => {
+vectorB.addEvent('change-data', () => {
    calc();
 });
 
 matrixA.addEvent('change-dimensions', () => { 
-   matrixB.m = matrixA.n;
+   vectorB.m = matrixA.n;
    calc();
 });
 
-matrixB.addEvent('change-dimensions', () => { 
-   matrixA.n = matrixB.m;
+vectorB.addEvent('change-dimensions', () => { 
+   matrixA.n = vectorB.m;
    calc();
 });
 
 function calc() { 
-   const vec = new Array(matrixB.m);
+   const vec = new Array(vectorB.m);
 
-   matrixB.getData().forEach((row, i) => { 
+   vectorB.getData().forEach((row, i) => { 
       vec[i] = row[0];
    })
 

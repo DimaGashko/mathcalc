@@ -30,6 +30,6 @@ export default class VectorDom extends MatrixDom {
    protected _createRoot() {
       super._createRoot();
 
-      this._root.className += ' MatrixDom-isVector';
+      this._root.className += ' matrixDom-isVector';
    }
 }
