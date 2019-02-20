@@ -249,7 +249,7 @@ export default class MatrixDom extends EventListener {
                ? this._matrix[i][j] : NaN;
 
             if (!isNaN(item)) continue
-
+            
             valid = false;
             break mainLoop;
          }
@@ -432,13 +432,25 @@ export default class MatrixDom extends EventListener {
    public _reset() {
       this._setDimensions(this._defaultM, this._defaultN);
 
-      this._matrix = [];
+      this.resetMatrix();
 
       this._defaultMatrix.forEach((row, i) => {
          row.forEach((item, j) => {
             this.set(i, j, item);
          });
       });
+   }
+
+   private resetMatrix() {
+      this._matrix = new Array(this._defaultM);
+
+      for (let i = 0; i < this._defaultM; i++) {
+         this._matrix[i] = new Array(this._defaultN);
+
+         for (let j = 0; j < this._defaultN; j++) {
+            this._matrix[i][j] = 1;
+         }
+      }
    }
 
    public reset() {
