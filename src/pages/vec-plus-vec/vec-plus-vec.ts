@@ -56,7 +56,7 @@ vecB.addEvent('change-dimensions', () => {
 });
 
 els.selectOperator.addEventListener('change', () => {
-   vecB.title = getTitle();
+   vecC.title = getTitle();
    calc();
 });
 

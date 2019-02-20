@@ -1,4 +1,4 @@
-import { Operator, plusOperator, mulOperator } from "./Operator";
+import { Operator, mulOperator } from "./Operator";
 
 /**
  * Умножает матрицу на число
